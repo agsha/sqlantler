@@ -43,7 +43,6 @@ public class App
                 }
                 s = readJsonFromClasspath(path, Settings.class);
             } catch (Exception e) {
-                log.warn("settings.json not found on classpath");
                 s = new Settings();
             }
 //            log.info("Using settings:{}", dumps(s));
@@ -73,30 +72,9 @@ public class App
             is = Files.newInputStream(Paths.get(s.input));
         }
         String query = IOUtils.toString(is).toUpperCase().replace("DATE(", "SUBSTR(");
-        log.debug("Hello, world!");
+
         CharStream charStream = CharStreams.fromString(query);
-//        PlSqlLexer lexer = new PlSqlLexer(charStream);
-//        TokenStream tokens = new CommonTokenStream(lexer);
-//        PlSqlParser parser = new PlSqlParser(tokens);
-//        PlSqlParser.Sql_scriptContext root = parser.sql_script();
-
-
-
-//        PostgreSQLLexer lexer = new PostgreSQLLexer(charStream);
-//        TokenStream tokens = new CommonTokenStream(lexer);
-//        PostgreSQLParser parser = new PostgreSQLParser(tokens);
-//        ParseTree root = parser.root();
-
-
-
-//
-//        MySqlLexer lexer = new MySqlLexer(charStream);
-//        TokenStream tokens = new CommonTokenStream(lexer);
-//        MySqlParser parser = new MySqlParser(tokens);
-//        ParseTree root = parser.root();
-////
-
-                SQLLexer lexer = new SQLLexer(charStream);
+        SQLLexer lexer = new SQLLexer(charStream);
         TokenStream tokens = new CommonTokenStream(lexer);
         SQLParser parser = new SQLParser(tokens);
         ParseTree root = parser.sql();
